@@ -1,4 +1,4 @@
-package com.ora.plugins.MF.MFConnector;
+package com.ora.plugins.mf.MFConnector;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
