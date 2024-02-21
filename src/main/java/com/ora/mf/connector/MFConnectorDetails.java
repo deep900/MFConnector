@@ -19,5 +19,6 @@ public class MFConnectorDetails {
 	
 	private String mfPassword;
 	
-	private String applicationName;
+	private String applicationName;	
+	
 }

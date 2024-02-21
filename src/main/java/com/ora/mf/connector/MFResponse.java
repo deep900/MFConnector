@@ -16,5 +16,7 @@ public class MFResponse {
 	private Object parsedResponse;
 	
 	private int responseCode;
+	
+	public String responseLookupKey;
 
 }

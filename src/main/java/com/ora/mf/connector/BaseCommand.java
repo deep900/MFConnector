@@ -1,6 +1,7 @@
 package com.ora.mf.connector;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.UUID;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -19,13 +20,21 @@ public class BaseCommand implements MFCommand {
 	
 	private int commandDelayInSeconds = 0;
 	
-	public BaseCommand(String command, String nextPrompt, int commandDelayInSeconds) {
+	private MFCommandStatus currentMFCommandStatus = MFCommandStatus.NOT_STARTED;
+	
+	private String lookupKey;	
+	
+	private MFConnectorDetails connector;
+	
+	public BaseCommand(String command, String nextPrompt, int commandDelayInSeconds,MFConnectorDetails connector) {
 		if(null == command || null == nextPrompt) {
 			throw new IllegalArgumentException("Command or next prompt cannot be null");
 		}
 		this.command = command;
 		this.nextPrompt = nextPrompt;
 		this.commandDelayInSeconds = commandDelayInSeconds;
+		this.lookupKey = UUID.randomUUID().toString();
+		this.connector = connector;
 	}
 
 	@Override
@@ -61,6 +70,21 @@ public class BaseCommand implements MFCommand {
 	@Override
 	public String toString() {
 		return "[Command]:" +command + "[Next Prompt]:" + nextPrompt;
+	}
+
+	@Override
+	public MFCommandStatus getCurrentStatus() {
+		return currentMFCommandStatus;
+	}
+
+	@Override
+	public String getLookupKey() {		
+		return lookupKey;
+	}
+
+	@Override
+	public MFConnectorDetails getConnectorDetails() {
+		return connector;
 	}
 
 }

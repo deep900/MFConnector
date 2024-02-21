@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.ora.mf.connector;
+package com.ora.mf.operation;
 
 import java.io.IOException;
 import java.io.PrintStream;
@@ -13,6 +13,16 @@ import org.apache.commons.net.telnet.TelnetClient;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import com.ora.mf.connector.ApplicationLoginCommands;
+import com.ora.mf.connector.ErrorCodes;
+import com.ora.mf.connector.MFCommand;
+import com.ora.mf.connector.MFConnectorDetails;
+import com.ora.mf.connector.MFResponse;
+import com.ora.mf.connector.TelnetOperation;
+
+/**
+ * This class is to be used only by the MFCommandManager and delegate the commands.
+ */
 public class MainFrameConnector {
 
 	private static final Logger log = LogManager.getLogger(MainFrameConnector.class);
@@ -33,9 +43,12 @@ public class MainFrameConnector {
 
 	private static MainFrameConnector connector = new MainFrameConnector();
 
-	public static MainFrameConnector getInstance(MFConnectorDetails connectionDetails) {
-		connectionDetailsObj = connectionDetails;
+	protected static MainFrameConnector getInstance() {	
 		return connector;
+	}
+	
+	public void setConnector(MFConnectorDetails mfConnector) {
+		this.connectionDetailsObj = mfConnector;
 	}
 
 	private TelnetOperation connect() throws IOException {
@@ -51,6 +64,7 @@ public class MainFrameConnector {
 				log.error("Error while looking for the host name", err);
 				return null;
 			}
+			port = this.connectionDetailsObj.getMfPortNumber();
 			telnetClient.connect(address, port);
 			telnetClient.setConnectTimeout(5000);
 			telnetClient.setKeepAlive(true);
@@ -61,7 +75,7 @@ public class MainFrameConnector {
 		}
 	}
 
-	public synchronized MFResponse performCommand(MFCommand command) {
+	protected synchronized MFResponse performCommand(MFCommand command) {
 		try {
 			log.info("Performing the command: " + command.getCommand());
 			telnetOperation = connect();

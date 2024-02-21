@@ -43,7 +43,7 @@ public class TelnetOperation {
 
 	public String sendCommand(String command, String nextPrompt) {
 		try {			
-			log.info("Sending command" + command + "," + nextPrompt);
+			log.info("Sending command " + command + "," + nextPrompt);
 			write(command);
 			return readUntil(nextPrompt);
 		} catch (Exception err) {

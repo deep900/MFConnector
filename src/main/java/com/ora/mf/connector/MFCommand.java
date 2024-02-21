@@ -20,4 +20,10 @@ public interface MFCommand {
 	
 	public int getDelayForCommandInSecs();
 	
+	public MFCommandStatus getCurrentStatus();
+	
+	public String getLookupKey();
+	
+	public MFConnectorDetails getConnectorDetails();
+	
 }
