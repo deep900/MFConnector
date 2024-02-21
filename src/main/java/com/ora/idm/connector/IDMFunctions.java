@@ -100,10 +100,10 @@ public class IDMFunctions {
 	private MFConnectorDetails getMFConnectorDetails() {
 		MFConnectorDetails mfConnectorDetails = new MFConnectorDetails();
 		mfConnectorDetails.setApplicationName("TSO");
-		mfConnectorDetails.setMfHostName("172.28.245.245");
+		
 		mfConnectorDetails.setMfPortNumber(23);
 		mfConnectorDetails.setMfUserName("intidn");
-		mfConnectorDetails.setMfPassword("ZSERM$0N");
+		
 		return mfConnectorDetails;
 	}
 
