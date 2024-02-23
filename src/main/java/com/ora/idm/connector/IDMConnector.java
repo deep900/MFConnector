@@ -8,6 +8,6 @@ package com.ora.idm.connector;
  */
 public interface IDMConnector {
 	
-	public UserDetails loadUserDetails();
+	public IDMUserDetails loadUserDetails();
 	
 }

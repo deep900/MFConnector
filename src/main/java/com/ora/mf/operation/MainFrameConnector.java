@@ -16,6 +16,7 @@ import org.apache.logging.log4j.Logger;
 import com.ora.mf.connector.ApplicationLoginCommands;
 import com.ora.mf.connector.ErrorCodes;
 import com.ora.mf.connector.MFCommand;
+import com.ora.mf.connector.MFCommandStatus;
 import com.ora.mf.connector.MFConnectorDetails;
 import com.ora.mf.connector.MFResponse;
 import com.ora.mf.connector.TelnetOperation;
@@ -23,7 +24,7 @@ import com.ora.mf.connector.TelnetOperation;
 /**
  * This class is to be used only by the MFCommandManager and delegate the commands.
  */
-public class MainFrameConnector {
+public final class MainFrameConnector {
 
 	private static final Logger log = LogManager.getLogger(MainFrameConnector.class);
 
@@ -78,17 +79,21 @@ public class MainFrameConnector {
 	protected synchronized MFResponse performCommand(MFCommand command) {
 		try {
 			log.info("Performing the command: " + command.getCommand());
+			command.setCurrentStatus(MFCommandStatus.INPROGRESS);
 			telnetOperation = connect();
 			if (null != telnetOperation) {
 				prepareForCommand();
 				String rawResponse = telnetOperation.sendCommand(command.getCommand(), command.getNextPrompt());
+				command.setCurrentStatus(MFCommandStatus.COMPLETED);
 				return makeResponse(rawResponse, ErrorCodes.SUCCESSFUL);
 			} else {
 				log.error("Unable to telnet system");
-				return makeResponse("Unable to reach the target system", ErrorCodes.NOT_FOUND);
+				command.setCurrentStatus(MFCommandStatus.FAILED);
+				return makeResponse("Unable to reach the target system", ErrorCodes.NOT_FOUND);				
 			}
 		} catch (Exception err) {
 			log.error("Error while performing the command.", err);
+			command.setCurrentStatus(MFCommandStatus.FAILED);
 			return makeResponse(err.getMessage(), ErrorCodes.INTERNAL_SERVER_ERROR);
 
 		} finally {

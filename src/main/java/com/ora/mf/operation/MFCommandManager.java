@@ -4,12 +4,15 @@
 package com.ora.mf.operation;
 
 import java.util.HashMap;
-import java.util.Map;
 import java.util.concurrent.PriorityBlockingQueue;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.ApplicationListener;
-import org.springframework.core.metrics.ApplicationStartup;
 
+import com.ora.idm.connector.IDMFunctions;
+import com.ora.mf.connector.ErrorCodes;
 import com.ora.mf.connector.MFCommand;
 import com.ora.mf.connector.MFCommandStatus;
 import com.ora.mf.connector.MFCommandStatusEvent;
@@ -18,11 +21,14 @@ import com.ora.mf.connector.MFResponse;
 /**
  * 
  */
-public class MFCommandManager implements ApplicationListener<MFCommandStatusEvent>{
+public final class MFCommandManager {
 
+	private static final Logger log = LogManager.getLogger(IDMFunctions.class);	
+	
 	private PriorityBlockingQueue<MFCommand> commandRequestQueue = new PriorityBlockingQueue<MFCommand>();
 	
 	private HashMap<String,MFResponse> commandResponseMap = new HashMap<String, MFResponse>();
+	
 	
 	private MFCommandManager() {
 		
@@ -34,11 +40,7 @@ public class MFCommandManager implements ApplicationListener<MFCommandStatusEven
 	
 	public static MFCommandManager getInstance() {
 		return mfCommandManager;
-	}
-	
-	public Map<String, MFResponse> getCommandResponseMap() {
-		return commandResponseMap;
-	}
+	}	
 	
 	public String manageCommand(MFCommand commandObj) {
 		this.commandRequestQueue.add(commandObj);
@@ -50,17 +52,31 @@ public class MFCommandManager implements ApplicationListener<MFCommandStatusEven
 		MFCommand command = this.commandRequestQueue.peek();
 		if(command.getCurrentStatus().equals(MFCommandStatus.NOT_STARTED)) {
 			connector.setConnector(command.getConnectorDetails());
-			connector.performCommand(command);
+			MFResponse response = connector.performCommand(command);
+			commandCompleted(response);
 		}
 	}
-
-	@Override
-	public void onApplicationEvent(MFCommandStatusEvent event) {
-			//TODO 
-		/*
-		 * 1. Remove the command from queue
-		 * 2. Update the response hash map for enquiry
-		 * 3. call analyseAndTrigger.
-		 */
+	
+	private void commandCompleted(MFResponse response) {		
+		String lookupKey = response.getResponseLookupKey();
+		MFCommand removed = commandRequestQueue.poll();
+		log.info("Removed the command from queue" + removed.toString());
+		commandResponseMap.put(lookupKey, response);
+		analyseAndTrigger();
 	}
+	
+	
+	public MFResponse getResponse(String lookupKey) {
+		if(commandResponseMap.containsKey(lookupKey)) {
+			return commandResponseMap.get(lookupKey);
+		} else {
+			return getResponseNotReady();
+		}
+	}
+	
+	private MFResponse getResponseNotReady() {
+		MFResponse response = new MFResponse();
+		response.setResponseCode(ErrorCodes.RESPONSE_NOT_YET_READY);
+		return response;
+	}	
 }

@@ -8,7 +8,7 @@ import org.apache.logging.log4j.Logger;
 
 import com.ora.mf.data.parser.MFDataParser;
 
-public class BaseCommand implements MFCommand {
+public class BaseCommand implements MFCommand, Comparable {
 	
 	private static final Logger log = LogManager.getLogger(BaseCommand.class);
 	
@@ -85,6 +85,16 @@ public class BaseCommand implements MFCommand {
 	@Override
 	public MFConnectorDetails getConnectorDetails() {
 		return connector;
+	}
+
+	@Override
+	public int compareTo(Object o) {		
+		return 0;
+	}
+
+	@Override
+	public void setCurrentStatus(MFCommandStatus status) {
+		this.currentMFCommandStatus = status;		
 	}
 
 }

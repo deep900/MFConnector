@@ -30,7 +30,7 @@ public class IDMFunctions {
 
 	private MFCommandManager manager = MFCommandManager.getInstance();
 
-	public String createUser(UserDetails userDetailsObj, MFConnectorDetails mfConnectorDetails)
+	public String createUser(IDMUserDetails userDetailsObj, MFConnectorDetails mfConnectorDetails)
 			throws IllegalArgumentException, InvalidUserInputException {
 		try {
 			log.info("Tring to create the user:" + userDetailsObj.toString());
@@ -57,11 +57,11 @@ public class IDMFunctions {
 		return manager.manageCommand(commandObj);
 	}
 
-	private String getUserAttribute(UserDetails userDetails, UserAttributeEnum key) {
+	private String getUserAttribute(IDMUserDetails userDetails, UserAttributeEnum key) {
 		return userDetails.getAttributeMap().get(key.name()).toString();
 	}
 
-	private MFCommand createUserCommand(UserDetails userDetails, MFConnectorDetails mfConnectorDetails)
+	private MFCommand createUserCommand(IDMUserDetails userDetails, MFConnectorDetails mfConnectorDetails)
 			throws InvalidUserInputException {
 		if (userDetails.getUserId() == null || userDetails.getUserId().isEmpty()) {
 			throw new InvalidUserInputException("User ID cannot be empty or null");
@@ -81,8 +81,8 @@ public class IDMFunctions {
 		return createUserCommand;
 	}
 
-	private UserDetails getSampleUserDetails() {
-		IDMUserDetails userDetails = new IDMUserDetails();
+	private IDMUserDetails getSampleUserDetails() {
+		IDMUserDetailsImpl userDetails = new IDMUserDetailsImpl();
 		userDetails.setUserId(getRandomName(6));
 		HashMap userAttributeMap = new HashMap();
 		userAttributeMap.put(UserAttributeEnum.LAN_ID.name(), getRandomName(6));
@@ -100,10 +100,10 @@ public class IDMFunctions {
 	private MFConnectorDetails getMFConnectorDetails() {
 		MFConnectorDetails mfConnectorDetails = new MFConnectorDetails();
 		mfConnectorDetails.setApplicationName("TSO");
-		
+		mfConnectorDetails.setMfHostName("172.28.245.245");
 		mfConnectorDetails.setMfPortNumber(23);
 		mfConnectorDetails.setMfUserName("intidn");
-		
+	
 		return mfConnectorDetails;
 	}
 

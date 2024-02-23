@@ -26,4 +26,6 @@ public interface MFCommand {
 	
 	public MFConnectorDetails getConnectorDetails();
 	
+	public void setCurrentStatus(MFCommandStatus status);
+	
 }
