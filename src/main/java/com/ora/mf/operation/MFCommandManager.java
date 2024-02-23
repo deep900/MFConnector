@@ -50,6 +50,10 @@ public final class MFCommandManager {
 	
 	private void analyseAndTrigger() {
 		MFCommand command = this.commandRequestQueue.peek();
+		if(null == command) {
+			log.info("No more commands to process");
+			return;
+		}
 		if(command.getCurrentStatus().equals(MFCommandStatus.NOT_STARTED)) {
 			connector.setConnector(command.getConnectorDetails());
 			MFResponse response = connector.performCommand(command);
