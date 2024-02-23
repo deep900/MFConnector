@@ -21,16 +21,16 @@
 		</RollingFile>
 	</Appenders>
 	<Loggers>
-		<Logger name="console" level="trace" additivity="false">
+		<Logger name="MFConnector" level="info" additivity="false">
 			<AppenderRef ref="ConsoleAppender" />
 			<AppenderRef ref="FileAppender" />
 		</Logger>
 
-		<Root level="trace">
+		<!-- <Root level="info">
 			<AppenderRef ref="ConsoleAppender" />
 			<AppenderRef ref="FileAppender" />
-		</Root>
-		<Logger name="org.springframework" level="trace"/>
-		<Logger name="org.springframework.transaction.jta" level="info"/>
+		</Root> -->
+		<!-- <Logger name="org.springframework" level="info"/>
+		<Logger name="org.springframework.transaction.jta" level="info"/> -->
 	</Loggers>
 </Configuration>
