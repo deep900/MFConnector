@@ -3,6 +3,7 @@
  */
 package com.ora.idm.connector;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Arrays;
@@ -29,6 +30,10 @@ public class IDMFunctions {
 	private static final Logger log = LogManager.getLogger(IDMFunctions.class);	
 
 	private MFCommandManager manager = MFCommandManager.getInstance();
+	
+	public IDMFunctions() {
+		initLogger();
+	}
 
 	public String createUser(IDMUserDetails userDetailsObj, MFConnectorDetails mfConnectorDetails)
 			throws IllegalArgumentException, InvalidUserInputException {
@@ -81,7 +86,7 @@ public class IDMFunctions {
 		return createUserCommand;
 	}
 
-	private IDMUserDetails getSampleUserDetails() {
+	private IDMUserDetailsImpl getSampleUserDetails() {
 		IDMUserDetailsImpl userDetails = new IDMUserDetailsImpl();
 		userDetails.setUserId(getRandomName(6));
 		HashMap userAttributeMap = new HashMap();
@@ -100,10 +105,10 @@ public class IDMFunctions {
 	private MFConnectorDetails getMFConnectorDetails() {
 		MFConnectorDetails mfConnectorDetails = new MFConnectorDetails();
 		mfConnectorDetails.setApplicationName("TSO");
-		mfConnectorDetails.setMfHostName("172.28.245.245");
+		
 		mfConnectorDetails.setMfPortNumber(23);
 		mfConnectorDetails.setMfUserName("intidn");
-	
+		
 		return mfConnectorDetails;
 	}
 
@@ -128,6 +133,11 @@ public class IDMFunctions {
 
 	private static void initLogger() {
 		String log4jConfigFile = "/app/IGASUB/RACF/log4j2.xml";
+		File obj = new File(log4jConfigFile);
+		if(!obj.exists()) {
+			log.error("unable to locate the lo4j2 xml file.");
+			return;
+		}
 		ConfigurationSource source;
 		try {
 			source = new ConfigurationSource(new FileInputStream(log4jConfigFile));

@@ -58,8 +58,9 @@ public class TelnetOperation {
 			char ch = (char) inputStream.read();
 			while (true) {
 				sb.append(ch);
-				log.info("Response:" + sb.toString());
+				log.debug("Response:" + sb.toString());
 				if (sb.toString().contains(pattern)) {
+					log.info("Response:" + sb.toString());
 					return sb.toString();
 				}
 				ch = (char) inputStream.read();

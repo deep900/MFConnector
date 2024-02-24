@@ -8,14 +8,11 @@ import java.util.concurrent.PriorityBlockingQueue;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.springframework.context.ApplicationEventPublisher;
-import org.springframework.context.ApplicationListener;
 
 import com.ora.idm.connector.IDMFunctions;
 import com.ora.mf.connector.ErrorCodes;
 import com.ora.mf.connector.MFCommand;
 import com.ora.mf.connector.MFCommandStatus;
-import com.ora.mf.connector.MFCommandStatusEvent;
 import com.ora.mf.connector.MFResponse;
 
 /**
