@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.ora.idm.connector;
+package com.uob.connector.racf.idm;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.ora.mf.operation;
+package com.uob.connectors.racf.operation;
 
 import java.util.HashMap;
 import java.util.concurrent.PriorityBlockingQueue;
@@ -9,11 +9,11 @@ import java.util.concurrent.PriorityBlockingQueue;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.ora.idm.connector.IDMFunctions;
-import com.ora.mf.connector.ErrorCodes;
-import com.ora.mf.connector.MFCommand;
-import com.ora.mf.connector.MFCommandStatus;
-import com.ora.mf.connector.MFResponse;
+import com.uob.connector.racf.idm.IDMFunctions;
+import com.uob.connector.racf.mf.ErrorCodes;
+import com.uob.connector.racf.mf.MFCommand;
+import com.uob.connector.racf.mf.MFCommandStatus;
+import com.uob.connector.racf.mf.MFResponse;
 
 /**
  * 

@@ -1,9 +1,9 @@
 /**
  * 
  */
-package com.ora.mf.connector;
+package com.uob.connector.racf.mf;
 
-import com.ora.mf.data.parser.MFDataParser;
+import com.uob.connector.racf.data.parser.MFDataParser;
 
 /**
  * 

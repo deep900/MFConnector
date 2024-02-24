@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.ora.idm.connector;
+package com.uob.connector.racf.idm;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -16,11 +16,11 @@ import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.core.config.ConfigurationSource;
 import org.apache.logging.log4j.core.config.Configurator;
 
-import com.ora.idm.exception.InvalidUserInputException;
-import com.ora.mf.connector.BaseCommand;
-import com.ora.mf.connector.MFCommand;
-import com.ora.mf.connector.MFConnectorDetails;
-import com.ora.mf.operation.MFCommandManager;
+import com.uob.connector.racf.exception.InvalidUserInputException;
+import com.uob.connector.racf.mf.BaseCommand;
+import com.uob.connector.racf.mf.MFCommand;
+import com.uob.connector.racf.mf.MFConnectorDetails;
+import com.uob.connectors.racf.operation.MFCommandManager;
 
 /**
  * This is the main function class which will trigger the mainframe operations.

@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.ora.mf.data.parser;
+package com.uob.connector.racf.data.parser;
 
 /**
  * 

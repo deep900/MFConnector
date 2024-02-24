@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.ora.idm.exception;
+package com.uob.connector.racf.exception;
 
 /**
  * 

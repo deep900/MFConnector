@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.ora.mf.connector;
+package com.uob.connector.racf.mf;
 
 import java.util.ArrayList;
 import java.util.List;

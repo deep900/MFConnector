@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.ora.mf.operation;
+package com.uob.connectors.racf.operation;
 
 import java.io.IOException;
 import java.io.PrintStream;
@@ -13,13 +13,13 @@ import org.apache.commons.net.telnet.TelnetClient;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.ora.mf.connector.ApplicationLoginCommands;
-import com.ora.mf.connector.ErrorCodes;
-import com.ora.mf.connector.MFCommand;
-import com.ora.mf.connector.MFCommandStatus;
-import com.ora.mf.connector.MFConnectorDetails;
-import com.ora.mf.connector.MFResponse;
-import com.ora.mf.connector.TelnetOperation;
+import com.uob.connector.racf.mf.ApplicationLoginCommands;
+import com.uob.connector.racf.mf.ErrorCodes;
+import com.uob.connector.racf.mf.MFCommand;
+import com.uob.connector.racf.mf.MFCommandStatus;
+import com.uob.connector.racf.mf.MFConnectorDetails;
+import com.uob.connector.racf.mf.MFResponse;
+import com.uob.connector.racf.mf.TelnetOperation;
 
 /**
  * This class is to be used only by the MFCommandManager and delegate the commands.

@@ -1,4 +1,4 @@
-package com.ora.mf.connector;
+package com.uob.connector.racf.mf;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.UUID;
@@ -6,7 +6,7 @@ import java.util.UUID;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.ora.mf.data.parser.MFDataParser;
+import com.uob.connector.racf.data.parser.MFDataParser;
 
 public class BaseCommand implements MFCommand, Comparable {
 	
